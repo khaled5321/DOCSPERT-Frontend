@@ -1,10 +1,21 @@
-function App() {
+import { RouterProvider } from "react-router-dom";
+import router from "./router.jsx";
 
+
+function App() {
   return (
     <>
-      <h1 className="text-3xl font-bold underline">
-        Hello world!
-      </h1>
+      <header className="bg-slate-950 p-4 font-bold"></header>
+      <RouterProvider router={router} />
+
+      <footer className="bg-slate-950 p-4 font-bold">
+        <div className="text-white flex flex-col items-center sm:flex-row justify-between container mx-auto">
+          <p>© 2023 - All rights reserved</p>
+          <p>
+            Made By <a href="https://github.com/khaled5321" target="_blank" rel="noreferrer" className="text-blue-400">Khaled Emad</a>
+          </p>
+        </div>
+      </footer>
     </>
   )
 }
