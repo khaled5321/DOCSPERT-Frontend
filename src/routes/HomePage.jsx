@@ -1,9 +1,9 @@
-function HomePage() {
 
+function HomePage() {
     return (
-        <div id="HomePage">
+        <main id="HomePage" className="container mx-auto min-h-screen">
             <h1 className="text-center">Home Page</h1>
-        </div>
+        </main>
     );
 }
 
