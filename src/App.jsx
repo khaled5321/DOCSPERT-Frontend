@@ -1,16 +1,11 @@
-import { Outlet } from "react-router-dom";
-import Header from "./components/Header.jsx";
-import Footer from "./components/Footer.jsx";
+import { RouterProvider } from 'react-router-dom';
+import router from "./router.jsx";
 
 
 function App() {
   return (
     <>
-      <Header />
-
-      <Outlet />
-
-      <Footer />
+      <RouterProvider router={router} />
     </>
   )
 }
