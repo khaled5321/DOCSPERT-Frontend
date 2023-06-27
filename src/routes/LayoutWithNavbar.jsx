@@ -7,7 +7,7 @@ function LayoutWithNavbar() {
         <>
             <Header />
 
-            <main id="HomePage" className="container mx-auto min-h-screen">
+            <main id="layout" className="">
                 <Outlet />
             </main>
 
