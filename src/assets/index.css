@@ -1,3 +1,24 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.form {
+    @apply mt-4 px-4 gap-2 flex flex-col justify-center;
+}
+
+label {
+    @apply font-bold;
+}
+
+select {
+    @apply bg-white;
+}
+
+.input {
+    @apply w-full py-2 px-3 border border-primary rounded-md outline-none;
+}
+
+.submit {
+    @apply bg-secondary py-2 px-3 mt-2 font-bold text-white rounded-md;
+}

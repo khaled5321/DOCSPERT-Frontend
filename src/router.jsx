@@ -1,9 +1,11 @@
 import { Route, Navigate, createBrowserRouter, createRoutesFromElements } from "react-router-dom";
 import LayoutWithNavbar from "./routes/LayoutWithNavbar.jsx";
 import HomePage from "./routes/HomePage.jsx";
-import JoinPage from "./routes/JoinPage.jsx";
-import LoginPage from "./routes/LoginPage.jsx";
 import NotfoundPage from "./routes/NotfoundPage.jsx";
+import AuthLayout from "./routes/AuthLayout.jsx";
+import JoinForm from "./components/JoinForm.jsx";
+import LoginForm from "./components/LoginForm.jsx";
+
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -13,8 +15,10 @@ const router = createBrowserRouter(
                 <Route path="/404" element={<NotfoundPage />} />
                 <Route path="*" element={<Navigate replace to="/404" />} />
             </Route>
-            <Route path='/join' element={<JoinPage />} />
-            <Route path='/login' element={<LoginPage />} />
+            <Route element={<AuthLayout />}>
+                <Route path='/join' element={<JoinForm />} />
+                <Route path='/login' element={<LoginForm />} />
+            </Route>
         </>
     )
 );
