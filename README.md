@@ -1,7 +1,5 @@
 # DOCSPERT-Frontend  
 
-#### Live link:
-
 ## Project Setup
 
 ### Clone Repo

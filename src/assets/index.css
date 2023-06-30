@@ -4,7 +4,7 @@
 
 
 .form {
-    @apply mt-4 px-4 gap-2 flex flex-col justify-center;
+    @apply px-4 gap-2 flex flex-col justify-center;
 }
 
 label {

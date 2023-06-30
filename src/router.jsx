@@ -1,5 +1,6 @@
 import { Route, Navigate, createBrowserRouter, createRoutesFromElements } from "react-router-dom";
 import LayoutWithNavbar from "./routes/LayoutWithNavbar.jsx";
+import StartPage from "./routes/StartPage.jsx";
 import HomePage from "./routes/HomePage.jsx";
 import NotfoundPage from "./routes/NotfoundPage.jsx";
 import AuthLayout from "./routes/AuthLayout.jsx";
@@ -11,7 +12,7 @@ const router = createBrowserRouter(
     createRoutesFromElements(
         <>
             <Route element={<LayoutWithNavbar />}>
-                <Route index path='/' element={<HomePage />} />
+                <Route index path='/' element={<StartPage />} />
                 <Route path="/404" element={<NotfoundPage />} />
                 <Route path="*" element={<Navigate replace to="/404" />} />
             </Route>
@@ -19,6 +20,7 @@ const router = createBrowserRouter(
                 <Route path='/join' element={<JoinForm />} />
                 <Route path='/login' element={<LoginForm />} />
             </Route>
+            <Route path="/home" element={<HomePage />} />
         </>
     )
 );
