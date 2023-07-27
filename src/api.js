@@ -1,7 +1,7 @@
 const baseUrl = "http://localhost:8000/api/v1/"
 
 
-export async function sendRequest(method = "GET", url, data = {}, token = "") {
+export async function sendRequest(method = "GET", url, data = undefined, token = "") {
     let config = {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
@@ -23,7 +23,6 @@ export async function sendRequest(method = "GET", url, data = {}, token = "") {
     return response
 }
 
-
 export function handleErrors(errors) {
     let errorsList = []
     for (let key in errors) {
@@ -44,22 +43,74 @@ export function getAuth() {
     return [access, refresh]
 }
 
+export function setUserData(user) {
+    localStorage.setItem("user", user)
+}
+
+export function getUserData() {
+    return localStorage.getItem("user")
+}
+
 export function isTokenExpired(token) {
-    const payload = JSON.parse(atob(token.split('.')[1]))
-    const now = new Date()
-    return now > payload.exp * 1000
+    if (token) {
+        const payload = JSON.parse(atob(token.split('.')[1]))
+        const now = new Date()
+        return now > payload.exp * 1000
+    }
+    return true
 }
 
 export async function refreshToken(refresh) {
-    await sendRequest("POST",
-        "auth/token/refresh/", { "refresh": refresh }).then(async (res) => {
-            if (res.status === 200) {
-                const data = await res.json()
-                localStorage.setItem("access", data.access)
-                return data.access
+    let respose = await sendRequest("POST",
+        "auth/token/refresh/", { "refresh": refresh }
+    )
+
+    if (respose.status === 200) {
+        const data = await respose.json()
+        localStorage.setItem("access", data.access)
+        return data.access
+    }
+    else {
+        return false
+    }
+}
+
+export async function isLogedIn() {
+    let [access, refresh] = getAuth()
+
+    if (!isTokenExpired(access)) {
+        return true
+    }
+    else if (!isTokenExpired(refresh)) {
+        let access = await refreshToken(refresh)
+        return access ? true : false
+    }
+    else {
+        return false
+    }
+}
+
+
+export async function getCurrentUser() {
+    let login = await isLogedIn()
+    if (login) {
+        let [access] = getAuth()
+        try {
+            let data = await sendRequest(
+                'GET',
+                'users/currentuser/',
+                undefined,
+                access
+            )
+            if (data.status === 200) {
+                data = await data.json()
+                setUserData(data)
+                return data
             }
-            else {
-                return false
-            }
-        })
+        }
+        catch (err) {
+            console.log(err)
+            return null
+        }
+    }
 }

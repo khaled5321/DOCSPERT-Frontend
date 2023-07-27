@@ -25,12 +25,13 @@ function JoinForm() {
             return
         }
 
-        await sendRequest("POST",
-            "auth/signup/",
-            { username, email, password, password2, is_author }
-        ).then(async (res) => {
-            if (!res.ok) {
-                let errors = await res.json()
+        try {
+            let response = await sendRequest("POST",
+                "auth/signup/",
+                { username, email, password, password2, is_author }
+            )
+            if (!response.ok) {
+                let errors = await response.json()
                 let errorMsg = handleErrors(errors)
                 setMsg(errorMsg)
             }
@@ -38,7 +39,11 @@ function JoinForm() {
                 setMsg([])
                 navigate("/login", { state: { 'msg': "Account created! Please login" } });
             }
-        }).catch(err => { console.log(err) })
+
+        }
+        catch (e) {
+            console.log(e)
+        }
     }
 
     return (

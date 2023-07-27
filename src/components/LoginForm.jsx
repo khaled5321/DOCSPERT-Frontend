@@ -12,23 +12,27 @@ function LoginForm() {
         const username = e.target.username.value
         const password = e.target.password.value
 
-        await sendRequest("POST",
-            "auth/login/",
-            { username, password }
-        ).then(async (res) => {
-            if (!res.ok) {
-                let errors = await res.json()
+        try {
+            let response = await sendRequest("POST",
+                "auth/login/",
+                { username, password }
+            )
+            if (!response.ok) {
+                let errors = await response.json()
                 let errorMsg = handleErrors(errors)
                 setMsg(errorMsg.join('\n'))
             }
             else {
                 setMsg("")
-                let data = await res.json()
+                let data = await response.json()
 
                 setAuth(data.access, data.refresh)
                 navigate("/home");
             }
-        }).catch(() => { setMsg("Server error!") })
+        }
+        catch (err) {
+            setMsg("Server error!")
+        }
     }
 
     return (
